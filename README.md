@@ -2,6 +2,7 @@
 ```
 git clone git@github.com:drewkhoury/docker-datacenter-demo.git
 cd docker-datacenter-demo
+touch docker_subscription.lic # add a valid docker_subscription.lic file https://hub.docker.com/enterprise/trial/
 vagrant plugin install vagrant-proxyconf
 vagrant plugin install vagrant-hostmanager
 vagrant up
@@ -31,6 +32,10 @@ Before you attempt to run this demo ensure you have the following:
 - If you require a proxy on your workstation, review `VIRTUALBOX_PROXY` and `LOCAL_PROXY`
 
 # Steps
+
+Before you begin obtain a docker_subscription.lic by visiting https://hub.docker.com/enterprise/trial/
+
+Put your docker_subscription.lic file in the root of this repo.
 
 The `vagrant up` command will bring up all 3 VMs and provision them with Docker Datacenter.
 

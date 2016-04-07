@@ -11,7 +11,7 @@ sudo docker run --rm -t --name ucp \
 docker/ucp join \
 --url https://${DOCKER1_IP}:8443 \
 --fingerprint `curl -s http://docker1:8000/fingerprint.log` \
---replica --host-address ${DOCKER1_IP3} \
+--replica --host-address ${DOCKER3_IP} \
 --controller-port 8443
 
 # # interlock 1 - works with boot2docker
