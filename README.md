@@ -1,7 +1,7 @@
 # I'm in the fast lane
 ```
-git clone git@github.com:drewkhoury/docker-datacenter-demo.git
-cd docker-datacenter-demo
+git clone git@github.com:drewkhoury/docker-datacenter.git
+cd docker-datacenter
 touch docker_subscription.lic # add a valid docker_subscription.lic file https://hub.docker.com/enterprise/trial/
 vagrant plugin install vagrant-proxyconf
 vagrant plugin install vagrant-hostmanager

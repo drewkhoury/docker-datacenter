@@ -16,20 +16,33 @@ Once you've done a `vagrant up`, DTR will be available on [https://docker1](http
 
 ### Create a repo to hold an image
 
-Note: A repo has a 1-1 relationship with an image, so the repo name and the image name must match exactly. Repos can hold many images of the same name but with different tags.
+A repo has a 1-1 relationship with an image, so the repo name and the image name must match exactly.
+Repos can hold many images of the same name but with different tags, e.g `docker1/admin/foo:tag1` and `docker1/admin/foo:tag2`.
 
-- Create repository foo from the web interface (e.g as an admin create the repo foo)
-- You should now have [https://docker1/repositories/admin/foo/details](https://docker1/repositories/admin/foo/details)
+Create a new repo `foo` under the account `admin`.
+
+```
+vagrant ssh docker1
+
+DOMAIN=docker1
+curl --user admin:adminadmin -X POST --header "Content-Type: application/json" \
+             --header "Accept: application/json" \
+             -d "{
+  \"name\": \"foo\",
+  \"shortDescription\": \"foo\",
+  \"longDescription\": \"foo\",
+  \"visibility\": \"public\"
+}" "https://${DOMAIN}/api/v0/repositories/admin"
+```
 
 ### Create an image and push it to DTR
 
 ```
 vagrant ssh docker1
 
-export DOCKER1_IP=`cat /etc/hosts | grep docker1 | cut -f1`
-
 # login to dtr
-docker login -u admin -p adminadmin -e foo@bar.com $DOCKER1_IP
+DOMAIN=docker1
+docker login -u admin -p adminadmin -e foo@bar.com ${DOMAIN}
 
 # create test dockerfile
 touch hello
@@ -39,20 +52,23 @@ COPY hello /
 CMD ["/hello"]
 EOF
 
-# the target tag MUST match the repo we created in dtr.
-# the repo `admin/foo` will only hold images called `admin/foo`.
-# the repo `admin/foo` can hold many different tags for the same image (e.g tag1,tag2,latest)
-TARGET_TAG=${DOCKER1_IP}/admin/foo:tag1
+# create a image tag locally,
+# image name `${DOMAIN}/admin/foo` must match repo name `https://${DOMAIN}/repositories/admin/foo/details`
+docker build -t ${DOMAIN}/admin/foo:tag1 .
 
-# think of build/tag as a local commit in git
-docker build -t ${TARGET_TAG} .
-
-# think of push as a git push
-docker push ${TARGET_TAG}
+# push the image tag to the dtr repo,
+# a repo can hold many image tags for the same image,
+# e.g `${DOMAIN}/admin/foo:tag1` and `${DOMAIN}/admin/foo:tag2`
+docker push ${DOMAIN}/admin/foo:tag1
 
 ```
 
-If you have problems with the login command above, troubleshoot with `curl -u admin:adminadmin --cacert /etc/docker/certs.d/${DOCKER1_IP}/ca.crt https://${DOCKER1_IP}`.
+If you have problems with the login command above, troubleshoot with:
+
+```
+curl -v https://${DOMAIN}/login -u admin:adminadmin
+curl -v https://${DOMAIN}/login --cacert /etc/pki/ca-trust/source/anchors/${DOMAIN}.crt --insecure
+```
 
 If you have authentication issues when doing a `docker push` make sure the repository is named EXACTLY the same as the image you're trying to push, and that the repo exists with the correct user access applied to it.
 

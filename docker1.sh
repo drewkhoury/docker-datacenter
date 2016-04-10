@@ -21,25 +21,43 @@ docker/ucp fingerprint | cut -d '=' -f 2 > fingerprint.log
 # serve up the fingerprint
 nohup python -m SimpleHTTPServer 8000 </dev/null >/dev/null 2>&1 &  
 
+# DTR - Offline content
+#wget https://packages.docker.com/dtr/1.4/dtr-1.4.3.tar
+#sudo docker load < dtr-1.4.3.tar
+
 # DTR
 sudo bash -c "$(sudo docker run docker/trusted-registry install)"
 
 # SSL CERTS
 
-# get the ssl cert for the docker1 host,
-# and make sure centos knows about it
-openssl s_client -connect $DOCKER1_IP:443 \
--showcerts </dev/null 2>/dev/null \
-| openssl x509 -outform PEM \
-| sudo tee /etc/pki/ca-trust/source/anchors/$DOCKER1_IP.crt
-sudo update-ca-trust
+# define the domain
+DOMAIN=docker1
 
-# get the ssl cert for the docker1 host,
-# and make sure docker knows about it
-mkdir -p /etc/docker/certs.d/${DOCKER1_IP}
-#sudo chown -R vagrant:root /etc/docker/
-openssl s_client -connect $DOCKER1_IP:443 \
+# https://docs.docker.com/v1.9/docker-trusted-registry/configuration/#installing-registry-certificates-on-client-docker-daemons
+# Installing Registry certificates on client Docker daemons
+# The default certificates do not have a trusted Certificate Authority,
+# we will need to install them on each client Docker daemon host.
+#
+openssl s_client -connect ${DOMAIN}:443 \
 -showcerts </dev/null 2>/dev/null \
 | openssl x509 -outform PEM \
-| sudo tee /etc/docker/certs.d/${DOCKER1_IP}/ca.crt
+| sudo tee /etc/pki/ca-trust/source/anchors/${DOMAIN}.crt
+
+# Using certificates for repository client verification
+# https://docs.docker.com/engine/security/certificates/
+#
+# e.g `docker login`
+#
+mkdir -p /etc/docker/certs.d/${DOMAIN}
+openssl s_client -connect ${DOMAIN}:443 \
+-showcerts </dev/null 2>/dev/null \
+| openssl x509 -outform PEM \
+| sudo tee /etc/docker/certs.d/${DOMAIN}/ca.crt
+
+# restart for new ssl certs
+sudo update-ca-trust
 sudo /bin/systemctl restart docker.service
+
+# test
+curl -v https://${DOMAIN}/login
+curl -v https://${DOMAIN}/login --cacert /etc/pki/ca-trust/source/anchors/${DOMAIN}.crt --insecure
