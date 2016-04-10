@@ -28,16 +28,17 @@ sudo bash -c "$(sudo docker run docker/trusted-registry install)"
 
 # get the ssl cert for the docker1 host,
 # and make sure centos knows about it
-openssl s_client -connect $DOCKER1_IP \
+openssl s_client -connect $DOCKER1_IP:443 \
 -showcerts </dev/null 2>/dev/null \
 | openssl x509 -outform PEM \
-| sudo tee /etc/pki/ca-trust/source/anchors/$DOMAIN_NAME.crt
+| sudo tee /etc/pki/ca-trust/source/anchors/$DOCKER1_IP.crt
 sudo update-ca-trust
 
 # get the ssl cert for the docker1 host,
 # and make sure docker knows about it
 mkdir -p /etc/docker/certs.d/${DOCKER1_IP}
-openssl s_client -connect $DOMAIN_NAME:443 \
+#sudo chown -R vagrant:root /etc/docker/
+openssl s_client -connect $DOCKER1_IP:443 \
 -showcerts </dev/null 2>/dev/null \
 | openssl x509 -outform PEM \
 | sudo tee /etc/docker/certs.d/${DOCKER1_IP}/ca.crt

@@ -6,12 +6,12 @@ You can use `vagrant destroy -f` to remove all containers, `vagrant up docker1` 
 
 ## DTR Notes 
 
-Once you've done a `vagrant up`, DTR will be available on docker1 over https/443. It requires some configuration before you can use it. It also needs integration with UCP (which is a manual process).
+Once you've done a `vagrant up`, DTR will be available on [https://docker1](https://docker1). It requires some configuration before you can use it. It also needs integration with UCP (which is a manual process).
 
 ### Apply some basic settings
 
-- In settings>general :: Set Domain Name
-- In settings>licnese :: Apply Licence (same as UCP)
+- In settings>general :: Set Domain Name (docker1)
+- In settings>licnese :: Apply Licence (docker_subscription.lic)
 - In settings>auth    :: Choose 'managed' and create an admin account e.g admin/adminadmin.
 
 ### Create a repo to hold an image
@@ -19,11 +19,13 @@ Once you've done a `vagrant up`, DTR will be available on docker1 over https/443
 Note: A repo has a 1-1 relationship with an image, so the repo name and the image name must match exactly. Repos can hold many images of the same name but with different tags.
 
 - Create repository foo from the web interface (e.g as an admin create the repo foo)
-- You should now have https://${DOCKER1_IP}/repositories/admin/foo/details
+- You should now have [https://docker1/repositories/admin/foo/details](https://docker1/repositories/admin/foo/details)
 
 ### Create an image and push it to DTR
 
 ```
+vagrant ssh docker1
+
 export DOCKER1_IP=`cat /etc/hosts | grep docker1 | cut -f1`
 
 # login to dtr

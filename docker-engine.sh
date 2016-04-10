@@ -31,7 +31,7 @@ sudo chown root:docker /usr/local/bin/docker-compose
 # git
 sudo yum install git -y
 
-# discover the docker1 ip (joining to a primary requires 
+# discover the docker ips (joining to a primary requires 
 # 						   a legit address and an /etc/hosts hack won't cut it)
 export DOCKER1_IP=`cat /etc/hosts | grep docker1 | cut -f1`
 export DOCKER2_IP=`cat /etc/hosts | grep docker2 | cut -f1`

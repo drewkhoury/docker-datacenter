@@ -47,6 +47,19 @@ vagrant up
 
 All Guest VMs obtain thier IPs dynamically, and have hostname entries in `/etc/hosts` files. Your Host Machine will also have it's host file set due to the Vagrantfile config `config.hostmanager.manage_host = true` though you can change this accordingly.
 
+Example Output:
+```
+==> docker1: INFO[0000] Verifying your system is compatible with UCP 
+==> docker1: WARN[0000] Your system uses devicemapper.  We can not accurately detect available storage space.  Please make sure you have at least 3.00 GB available in /var/lib/docker 
+==> docker1: INFO[0002] Pulling required images... (this may take a while) 
+==> docker1: INFO[0094] Installing UCP with host address 172.28.128.3 - If this is incorrect, please specify an alternative address with the '--host-address' flag 
+==> docker1: INFO[0004] Generating UCP Cluster Root CA               
+==> docker1: INFO[0026] Generating UCP Client Root CA                
+==> docker1: INFO[0031] Deploying UCP Containers                     
+==> docker1: INFO[0037] UCP instance ID: HVJK:OULF:6TZT:BUM5:2X4Q:U44G:KFAK:NZOI:TCYH:52O2:YBSB:DWEE 
+==> docker1: INFO[0037] UCP Server SSL: SHA1 Fingerprint=2E:4A:70:F6:E6:04:6A:49:91:35:BC:EA:0D:DE:E9:ED:16:4A:54:8F 
+==> docker1: INFO[0037] Login as "admin"/"orca" to UCP at https://172.28.128.3:8443
+```
 In your browser you should now be able to open the following:
 
 - UCP(primary)=`https://docker1:4431/` (login details `admin/orca`) && DTR=`https://docker1:4430/`
