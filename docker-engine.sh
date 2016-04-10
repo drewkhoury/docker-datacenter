@@ -20,6 +20,7 @@ sudo docker pull docker/ucp
 #  allow vagrant user to run docker commands
 sudo usermod -a -G docker vagrant
 sudo chown -R vagrant:root /var/lib/docker/
+sudo chown -R vagrant:root /etc/docker/
 
 # docker compose
 curl -Ls https://github.com/docker/compose/releases/download/1.6.2/docker-compose-`uname -s`-`uname -m` > docker-compose
