@@ -68,6 +68,6 @@ In your browser you should now be able to open the following:
 
 # But I want more!
 
-See [extras](docs/EXTRAS.md) for configuration of DTR, Interlock and Vagrant tips.
+See [tips](https://github.com/drewkhoury/docker-datacenter/wiki/Tips) for tips on DTR, Interlock and Vagrant.
 
-There's also a [known issues](docs/KNOWN-ISSUES.md) that covers common proxy issues, vagrant/virtualbox image issues, and Windows rsync issues.
+There's also a [known issues](https://github.com/drewkhoury/docker-datacenter/wiki/Known-Issues) that covers common proxy issues, vagrant/virtualbox image issues, and Windows rsync issues.
