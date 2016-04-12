@@ -1,6 +1,7 @@
 #!/bin/bash
 
 DOMAIN=dtr.local
+DTR_PORT=1337
 
 # create repo
 curl -k -Lik \
@@ -10,7 +11,7 @@ curl -k -Lik \
     -d "{  \"name\": \"foo\",  \"shortDescription\": \"foo\",  \"longDescription\": \"foo\",  \"visibility\": \"public\"}" "https://${DOMAIN}/api/v0/repositories/admin"
 
 # login to dtr
-docker login -u admin -p adminadmin -e foo@bar.com ${DOMAIN}
+docker login -u admin -p adminadmin -e foo@bar.com ${DOMAIN}:${DTR_PORT}
 
 # create test dockerfile
 touch hello
