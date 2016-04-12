@@ -9,7 +9,7 @@ vagrant up
 ```
 
 UCP=`https://docker1:8443/` (login details `admin/orca`).
-DTR=`https://docker1:1337/` (login details admin/adminadmin).
+DTR=`https://docker1:1337/` (login details `admin/adminadmin`).
 
 # This Demo
 
@@ -45,7 +45,7 @@ vagrant plugin install vagrant-hostmanager
 vagrant up
 ```
 
-All Guest VMs obtain thier IPs dynamically, and have hostname entries in `/etc/hosts` files. Your Host Machine will also have it's host file set due to the Vagrantfile config `config.hostmanager.manage_host = true` though you can change this accordingly.
+All Guest VMs obtain thier IPs dynamically, and have hostname entries in `/etc/hosts` files. Your Host Machine will also have it's host file set due to the Vagrantfile config `config.hostmanager.manage_host = true` and you may be prompted to allow access to your hosts file.
 
 Example Output:
 ```
