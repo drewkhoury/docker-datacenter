@@ -61,27 +61,27 @@ Vagrant.configure(2) do |config|
   config.vm.box = "centos/7"
   config.vm.network "private_network", type: "dhcp"
 
+  # does not appear to support vagrant-hostmanager ...
+  #config.vm.box = "bento/centos-7.2"
+
   config.vm.provider :virtualbox do |v|
     v.customize ["modifyvm", :id, "--memory", 1792]
   end
 
-  # docker1
   config.vm.define "docker1" do |docker1|
-    docker1.vm.network "forwarded_port", guest: 443,  host: 4430
-    docker1.vm.network "forwarded_port", guest: 8443, host: 4431
-    docker1.vm.provision "shell", path: "docker1.sh"
+    #docker1.vm.network "forwarded_port", guest: 443,  host: 4430
+    #docker1.vm.network "forwarded_port", guest: 8443, host: 4431
+    docker1.vm.provision "shell", path: "scripts/docker1.sh"
   end
 
-  # docker2 
   config.vm.define "docker2" do |docker2|
-    docker2.vm.network "forwarded_port", guest: 443, host: 4432
-    docker2.vm.provision "shell", path: "docker2.sh"
+    #docker2.vm.network "forwarded_port", guest: 8443, host: 4432
+    docker2.vm.provision "shell", path: "scripts/docker2.sh"
   end
 
-  # docker3
   config.vm.define "docker3" do |docker3|
-    docker3.vm.network "forwarded_port", guest: 443, host: 4433   
-    docker3.vm.provision "shell", path: "docker3.sh"
+    #docker3.vm.network "forwarded_port", guest: 8443, host: 4433   
+    docker3.vm.provision "shell", path: "scripts/docker3.sh"
   end
 
 end

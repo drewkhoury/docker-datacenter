@@ -6,6 +6,8 @@ You can use `vagrant destroy -f` to remove all containers, `vagrant up docker1` 
 
 ## DTR Notes 
 
+NOTE: This has been fully automated now, you probably don't need these notes!
+
 Once you've done a `vagrant up`, DTR will be available on [https://docker1](https://docker1). It requires some configuration before you can use it. It also needs integration with UCP (which is a manual process).
 
 ### Apply some basic settings
@@ -24,7 +26,7 @@ Create a new repo `foo` under the account `admin`.
 ```
 vagrant ssh docker1
 
-DOMAIN=docker1
+DOMAIN=dtr.local
 curl --user admin:adminadmin -X POST --header "Content-Type: application/json" \
              --header "Accept: application/json" \
              -d "{
@@ -41,7 +43,7 @@ curl --user admin:adminadmin -X POST --header "Content-Type: application/json" \
 vagrant ssh docker1
 
 # login to dtr
-DOMAIN=docker1
+DOMAIN=dtr.local
 docker login -u admin -p adminadmin -e foo@bar.com ${DOMAIN}
 
 # create test dockerfile
@@ -71,6 +73,8 @@ curl -v https://${DOMAIN}/login --cacert /etc/pki/ca-trust/source/anchors/${DOMA
 ```
 
 If you have authentication issues when doing a `docker push` make sure the repository is named EXACTLY the same as the image you're trying to push, and that the repo exists with the correct user access applied to it.
+
+General dtr troubleshooting can be done with `cd /usr/local/etc/dtr/logs && tail -f *`.
 
 ## Interlock Notes
 

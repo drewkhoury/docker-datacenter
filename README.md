@@ -8,8 +8,8 @@ vagrant plugin install vagrant-hostmanager
 vagrant up
 ```
 
-UCP=`https://docker1:4431/` (login details `admin/orca`).
-DTR=`https://docker1:4430/`.
+UCP=`https://docker1:8443/` (login details `admin/orca`).
+DTR=`https://docker1:1337/` (login details admin/adminadmin).
 
 # This Demo
 
@@ -62,12 +62,12 @@ Example Output:
 ```
 In your browser you should now be able to open the following:
 
-- UCP(primary)=`https://docker1:4431/` (login details `admin/orca`) && DTR=`https://docker1:4430/`
-- UCP(replica)=`https://docker2:4432/` (login details `admin/orca`)
-- UCP(replica)=`https://docker3:4433/` (login details `admin/orca`)
+- UCP(primary)=`https://docker1:8443/` (login details `admin/orca`) && DTR=`https://docker1:1337/` (login details `admin/adminadmin`)
+- UCP(replica)=`https://docker2:8443/` (login details `admin/orca`)
+- UCP(replica)=`https://docker3:8443/` (login details `admin/orca`)
 
 # But I want more!
 
-See [extras](EXTRAS.md) for configuration of DTR, Interlock and Vagrant tips.
+See [extras](docs/EXTRAS.md) for configuration of DTR, Interlock and Vagrant tips.
 
-There's also a [known issues](KNOWN-ISSUES.md) that covers common proxy issues, vagrant/virtualbox image issues, and Windows rsync issues.
+There's also a [known issues](docs/KNOWN-ISSUES.md) that covers common proxy issues, vagrant/virtualbox image issues, and Windows rsync issues.

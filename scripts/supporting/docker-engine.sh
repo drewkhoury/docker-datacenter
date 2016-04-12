@@ -6,16 +6,8 @@ sudo yum install -y yum-utils
 sudo yum-config-manager --add-repo https://packages.docker.com/1.10/yum/repo/main/centos/7
 sudo yum install docker-engine -y
 
-# debug
-sudo systemctl daemon-reload
-sudo systemctl show docker --property Environment
-# sudo systemctl daemon-reload; sudo service docker restart; sudo systemctl show docker --property Environment
-
 # start
 sudo service docker start
-
-# get ucp image
-sudo docker pull docker/ucp
 
 #  allow vagrant user to run docker commands
 sudo usermod -a -G docker vagrant
@@ -28,11 +20,16 @@ sudo mv docker-compose /usr/local/bin/docker-compose
 sudo chmod +x /usr/local/bin/docker-compose
 sudo chown root:docker /usr/local/bin/docker-compose
 
-# git
-sudo yum install git -y
+# extra bits
+sudo yum install git wget -y
 
-# discover the docker ips (joining to a primary requires 
-# 						   a legit address and an /etc/hosts hack won't cut it)
+# discover the docker ips
+# docker has an issue with trying to join
+# via a hacked /etc/hosts entry
 export DOCKER1_IP=`cat /etc/hosts | grep docker1 | cut -f1`
 export DOCKER2_IP=`cat /etc/hosts | grep docker2 | cut -f1`
 export DOCKER3_IP=`cat /etc/hosts | grep docker3 | cut -f1`
+
+cat <<EOF | sudo tee -a /etc/hosts > /dev/null
+${DOCKER1_IP} dtr.local
+EOF
