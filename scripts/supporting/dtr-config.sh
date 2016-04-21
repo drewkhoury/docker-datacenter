@@ -29,5 +29,5 @@ echo "Configuring UCP to use DTR"
 wget -q https://github.com/stedolan/jq/releases/download/jq-1.5/jq-linux64
 chmod +x jq-linux64
 TOKEN=$(curl -k -c jar https://docker1:8443/auth/login -d '{"username": "admin", "password": "orca"}' -X POST -s | ./jq-linux64 -r ".auth_token")
-curl -k -s -c jar -H "Authorization: Bearer ${TOKEN}" https://docker1:8443/api/config/registry -X POST --data "{\"url\": \"https://${DOMAIN}:{DTR_PORT}\", \"insecure\":false}"
+curl -k -s -c jar -H "Authorization: Bearer ${TOKEN}" https://docker1:8443/api/config/registry -X POST --data "{\"url\": \"https://${DOMAIN}:${DTR_PORT}\", \"insecure\":false}"
 curl -k -s -H "Authorization: Bearer ${TOKEN}" https://docker1:8443/api/clientbundle -X POST > ~/admin_bundle.zip
