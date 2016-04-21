@@ -27,7 +27,7 @@ EOF
 echo "Stopping and Installing DRT"
 docker run docker/trusted-registry:1.4.3 stop | sh
 docker run docker/trusted-registry:1.4.3 install | sh
-sleep 35
+sleep 45
 
 echo "Configuring certs"
 
@@ -36,7 +36,7 @@ echo "Configuring certs"
 # The default certificates do not have a trusted Certificate Authority,
 # we will need to install them on each client Docker daemon host.
 #
-openssl s_client -connect ${DOMAIN}:8443 \
+openssl s_client -connect ${DOMAIN}:${DTR_PORT} \
 -showcerts </dev/null 2>/dev/null \
 | openssl x509 -outform PEM \
 | sudo tee /etc/pki/ca-trust/source/anchors/${DOMAIN}.crt
@@ -47,7 +47,7 @@ openssl s_client -connect ${DOMAIN}:8443 \
 # e.g `docker login`
 #
 mkdir -p /etc/docker/certs.d/${DOMAIN}
-openssl s_client -connect ${DOMAIN}:8443 \
+openssl s_client -connect ${DOMAIN}:${DTR_PORT} \
 -showcerts </dev/null 2>/dev/null \
 | openssl x509 -outform PEM \
 | sudo tee /etc/docker/certs.d/${DOMAIN}/ca.crt
