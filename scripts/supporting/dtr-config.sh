@@ -12,7 +12,7 @@ curl -Lik \
 	-H 'Accept: */*' \
 	-H 'X-Requested-With: XMLHttpRequest' \
 	--data-binary @${SCRIPT_PATH}/docker_subscription.lic
-sleep 10
+sleep 25
 
 # Creating Admin User
 echo "Configuring DTR - Creating Admin User"
@@ -22,7 +22,7 @@ curl -k -Lik \
      -H 'Accept: */*' \
      -H 'X-Requested-With: XMLHttpRequest' \
      --data-binary '{"method":"managed","managed":{"users":[{"username":"admin","password":"adminadmin","isNew":true,"isAdmin":true,"isReadWrite":false,"isReadOnly":false,"teamsChanged":true}]}}'
-sleep 15
+sleep 25
 
 # configure ucp
 echo "Configuring UCP to use DTR"

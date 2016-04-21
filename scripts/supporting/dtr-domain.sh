@@ -36,7 +36,7 @@ echo "Configuring certs"
 # The default certificates do not have a trusted Certificate Authority,
 # we will need to install them on each client Docker daemon host.
 #
-openssl s_client -connect ${DOMAIN}:${DTR_PORT} \
+openssl s_client -connect ${DOMAIN}:8443 \
 -showcerts </dev/null 2>/dev/null \
 | openssl x509 -outform PEM \
 | sudo tee /etc/pki/ca-trust/source/anchors/${DOMAIN}.crt
@@ -47,7 +47,7 @@ openssl s_client -connect ${DOMAIN}:${DTR_PORT} \
 # e.g `docker login`
 #
 mkdir -p /etc/docker/certs.d/${DOMAIN}
-openssl s_client -connect ${DOMAIN}:${DTR_PORT} \
+openssl s_client -connect ${DOMAIN}:8443 \
 -showcerts </dev/null 2>/dev/null \
 | openssl x509 -outform PEM \
 | sudo tee /etc/docker/certs.d/${DOMAIN}/ca.crt
