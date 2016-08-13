@@ -12,7 +12,7 @@ SCRIPT_PATH=/home/vagrant/sync
 DOMAIN=$DOCKER1_IP
 DTR_PORT=1337
 
-Injecting License
+# Injecting License
 echo "Configuring DTR - Injecting License"
 curl -Lik \
 	-X PUT https://${DOMAIN}:${DTR_PORT}/api/v0/admin/settings/license \
