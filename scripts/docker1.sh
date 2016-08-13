@@ -40,7 +40,7 @@ echo
 echo "Try the following in your favourite browser:"
 echo
 echo "Universal Control Plane (UCP)  :: https://docker1:${UCP_HTTPS_PORT}"
-echo "Universal Control Plane (DTR)  :: https://docker1:${DTR_HTTPS_PORT}"
+echo "Docker Trusted Registry (DTR)  :: https://docker1:${DTR_HTTPS_PORT}"
 echo
 echo "Login before pushing images to DTR with:"
 echo
