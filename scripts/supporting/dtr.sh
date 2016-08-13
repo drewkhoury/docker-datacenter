@@ -38,10 +38,10 @@ sleep 20
 # https://blog.docker.com/2016/04/docker-datacenter-ddc-in-a-box/
 
 # reconfigure dtr to work with a specific domain
-#source ${SCRIPT_PATH}/scripts/supporting/dtr-domain.sh
+source ${SCRIPT_PATH}/scripts/supporting/dtr-domain.sh
 
 # general config
-#source ${SCRIPT_PATH}/scripts/supporting/dtr-config.sh
+source ${SCRIPT_PATH}/scripts/supporting/dtr-config.sh
 
 # push image
-#source ${SCRIPT_PATH}/scripts/supporting/dtr-push-image.sh
+source ${SCRIPT_PATH}/scripts/supporting/dtr-push-image.sh
