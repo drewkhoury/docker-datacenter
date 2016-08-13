@@ -28,7 +28,7 @@ openssl s_client -connect ${DOMAIN}:${DTR_PORT} \
 #
 # e.g `docker login`
 #
-mkdir -p /etc/docker/certs.d/${DOMAIN}:${DTR_PORT}
+sudo mkdir -p /etc/docker/certs.d/${DOMAIN}:${DTR_PORT}
 openssl s_client -connect ${DOMAIN}:${DTR_PORT} \
 -showcerts </dev/null 2>/dev/null \
 | openssl x509 -outform PEM \
@@ -36,5 +36,8 @@ openssl s_client -connect ${DOMAIN}:${DTR_PORT} \
 
 # restart for new ssl certs
 sudo update-ca-trust
-sudo /bin/systemctl restart docker.service
+
+# dtr kind of epic fails if we restart the docker service ...
+#sudo /bin/systemctl restart docker.service
+
 sleep 10
