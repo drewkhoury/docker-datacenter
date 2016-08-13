@@ -50,7 +50,7 @@ echo '=================== Docker Datacenter ========================'
 echo '=============================================================='
 echo
 
-echo date
+echo `date`
 end=`date +%s`
 
 let deltatime=end-start
