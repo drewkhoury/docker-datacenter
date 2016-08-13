@@ -1,11 +1,11 @@
 #!/bin/bash
 
-SCRIPT_PATH=/home/vagrant/sync
-
-# install docker engine, and pull the ucp image
-source ${SCRIPT_PATH}/scripts/supporting/docker-engine.sh
-
-docker load < ${SCRIPT_PATH}/offline/ucp-1.1.2_dtr-2.0.2.tar.gz
+# discover the docker ips
+# docker has an issue with trying to join
+# via a hacked /etc/hosts entry
+export DOCKER1_IP=`cat /etc/hosts | grep docker1 | cut -f1`
+export DOCKER2_IP=`cat /etc/hosts | grep docker2 | cut -f1`
+export DOCKER3_IP=`cat /etc/hosts | grep docker3 | cut -f1`
 
 # ucp
 docker run --rm -t --name ucp \

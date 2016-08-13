@@ -1,11 +1,13 @@
 #!/bin/bash
 
-SCRIPT_PATH=/home/vagrant/sync
+echo `date`
+start=`date +%s`
 
-# install docker engine, and pull the ucp image
-source ${SCRIPT_PATH}/scripts/supporting/docker-engine.sh
+# paths
+export SCRIPT_PATH=/home/vagrant/sync
 
-docker load < ${SCRIPT_PATH}/offline/ucp-1.1.2_dtr-2.0.2.tar.gz
+# common scripts
+source ${SCRIPT_PATH}/scripts/supporting/common.sh
 
 # ucp
 docker run --rm -t --name ucp \
@@ -28,5 +30,31 @@ docker/ucp fingerprint | cut -d '=' -f 2 > fingerprint.log
 nohup python -m SimpleHTTPServer 8000 </dev/null >/dev/null 2>&1 &  
 
 # install dtr
-# source ${SCRIPT_PATH}/scripts/supporting/dtr-v1.sh
 source ${SCRIPT_PATH}/scripts/supporting/dtr.sh
+
+echo
+echo
+echo '=============================================================='
+echo '=================== Docker Datacenter ========================'
+echo
+echo "Try the following in your favourite browser:"
+echo
+echo "Universal Control Plane (UCP)  :: https://docker1:${UCP_HTTPS_PORT}"
+echo "Universal Control Plane (DTR)  :: https://docker1:${DTR_HTTPS_PORT}"
+echo
+echo "Login before pushing images to DTR with:"
+echo
+echo "docker login -u admin -p orca -e foo@bar.com ${DTR_URL}"
+echo
+echo '=================== Docker Datacenter ========================'
+echo '=============================================================='
+echo
+
+echo date
+end=`date +%s`
+
+let deltatime=end-start
+let hours=deltatime/3600
+let minutes=(deltatime/60)%60
+let seconds=deltatime%60
+printf "Time spent: %d:%02d:%02d\n" $hours $minutes $seconds
