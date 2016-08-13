@@ -28,4 +28,5 @@ docker/ucp fingerprint | cut -d '=' -f 2 > fingerprint.log
 nohup python -m SimpleHTTPServer 8000 </dev/null >/dev/null 2>&1 &  
 
 # install dtr
-# source ${SCRIPT_PATH}/scripts/supporting/dtr.sh
+# source ${SCRIPT_PATH}/scripts/supporting/dtr-v1.sh
+source ${SCRIPT_PATH}/scripts/supporting/dtr-v2.sh

@@ -1,33 +1,41 @@
 #!/bin/bash
 
-DOMAIN=dtr.local
+# discover the docker ips
+# docker has an issue with trying to join
+# via a hacked /etc/hosts entry
+export DOCKER1_IP=`cat /etc/hosts | grep docker1 | cut -f1`
+export DOCKER2_IP=`cat /etc/hosts | grep docker2 | cut -f1`
+export DOCKER3_IP=`cat /etc/hosts | grep docker3 | cut -f1`
+
+#DOMAIN=dtr.local
+DOMAIN=$DOCKER1_IP
 DTR_PORT=1337
 
-# General DTR domain, settings and UCP bypass auth
-echo "Configuring DTR domain, setting and to authorize UCP traffic"
+# # General DTR domain, settings and UCP bypass auth
+# echo "Configuring DTR domain, setting and to authorize UCP traffic"
 
-cat <<EOF | sudo tee /usr/local/etc/dtr/hub.yml > /dev/null
-load_balancer_http_port: 8080
-load_balancer_https_port: ${DTR_PORT}
-domain_name: "${DOMAIN}"
-notary_server: ""
-notary_cert: ""
-notary_verify_cert: false
-auth_bypass_ou: ""
-extra_env:
-HTTP_PROXY: ""
-HTTPS_PROXY: ""
-NO_PROXY: ""
-disable_upgrades: false
-release_channel: ""
-EOF
-# cant get this to work...
-#auth_bypass_ca: "$(docker run --rm -v /var/run/docker.sock:/var/run/docker.sock --name ucp docker/ucp dump-certs --cluster -ca)"
+# cat <<EOF | sudo tee /usr/local/etc/dtr/hub.yml > /dev/null
+# load_balancer_http_port: 8080
+# load_balancer_https_port: ${DTR_PORT}
+# domain_name: "${DOMAIN}"
+# notary_server: ""
+# notary_cert: ""
+# notary_verify_cert: false
+# auth_bypass_ou: ""
+# extra_env:
+# HTTP_PROXY: ""
+# HTTPS_PROXY: ""
+# NO_PROXY: ""
+# disable_upgrades: false
+# release_channel: ""
+# EOF
+# # cant get this to work...
+# #auth_bypass_ca: "$(docker run --rm -v /var/run/docker.sock:/var/run/docker.sock --name ucp docker/ucp dump-certs --cluster -ca)"
 
-echo "Stopping and Installing DRT"
-docker run docker/trusted-registry:1.4.3 stop | sh
-docker run docker/trusted-registry:1.4.3 install | sh
-sleep 45
+# echo "Stopping and Installing DRT"
+# docker run docker/trusted-registry:1.4.3 stop | sh
+# docker run docker/trusted-registry:1.4.3 install | sh
+# sleep 45
 
 echo "Configuring certs"
 
