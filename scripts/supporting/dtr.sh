@@ -6,7 +6,13 @@ SCRIPT_PATH=/home/vagrant/sync
 #wget https://packages.docker.com/dtr/1.4/dtr-1.4.3.tar
 #docker load < dtr-1.4.3.tar
 
-# DTR
+# DTR 2.x
+# https://hub.docker.com/r/docker/dtr/
+# The repository contains DTR 2.x and up.
+# DTR 1.x
+# https://hub.docker.com/r/docker/trusted-registry/
+# For DTR 1.x see docker/trusted-registry.
+
 sudo bash -c "$(sudo docker run docker/trusted-registry install)"
 sleep 20
 

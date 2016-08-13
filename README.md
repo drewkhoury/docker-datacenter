@@ -8,6 +8,8 @@ This demo Installs Commercially Supported Docker in a [High Availability](https:
 
 # I'm in the fast lane
 ```
+wget https://packages.docker.com/caas/ucp-1.1.2_dtr-2.0.2.tar.gz
+
 git clone git@github.com:drewkhoury/docker-datacenter.git
 cd docker-datacenter
 touch docker_subscription.lic # add a valid `docker_subscription.lic` file https://hub.docker.com/enterprise/trial/
