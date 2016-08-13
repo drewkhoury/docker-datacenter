@@ -1,11 +1,13 @@
 #!/bin/bash
 
-# discover the docker ips
-# docker has an issue with trying to join
-# via a hacked /etc/hosts entry
-export DOCKER1_IP=`cat /etc/hosts | grep docker1 | cut -f1`
-export DOCKER2_IP=`cat /etc/hosts | grep docker2 | cut -f1`
-export DOCKER3_IP=`cat /etc/hosts | grep docker3 | cut -f1`
+echo `date`
+start=`date +%s`
+
+# paths
+export SCRIPT_PATH=/home/vagrant/sync
+
+# common scripts
+source ${SCRIPT_PATH}/scripts/supporting/common.sh
 
 # ucp
 docker run --rm -t --name ucp \
@@ -18,3 +20,25 @@ docker/ucp join \
 --fingerprint `curl -s http://${DOCKER1_IP}:8000/fingerprint.log` \
 --replica --host-address ${DOCKER2_IP} \
 --controller-port 8443
+
+echo
+echo
+echo '=============================================================='
+echo '=================== Docker Datacenter ========================'
+echo
+echo "Try the following in your favourite browser:"
+echo
+echo "Universal Control Plane (UCP)  :: https://docker2:${UCP_HTTPS_PORT}"
+echo
+echo '=================== Docker Datacenter ========================'
+echo '=============================================================='
+echo
+
+echo `date`
+end=`date +%s`
+
+let deltatime=end-start
+let hours=deltatime/3600
+let minutes=(deltatime/60)%60
+let seconds=deltatime%60
+printf "Time spent: %d:%02d:%02d\n" $hours $minutes $seconds
