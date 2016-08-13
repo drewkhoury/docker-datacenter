@@ -23,7 +23,7 @@ DTR_PUBLIC_IP=${DOCKER1_IP}
 DTR_HTTP_PORT=1336
 DTR_HTTPS_PORT=1337
 
-docker run -it --rm \
+docker run --rm \
     docker/dtr install \
     --ucp-url $UCP_URL \
     --ucp-ca "$(cat ucp-ca.pem)" \
