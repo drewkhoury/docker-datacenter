@@ -12,15 +12,15 @@ SCRIPT_PATH=/home/vagrant/sync
 DOMAIN=$DOCKER1_IP
 DTR_PORT=1337
 
-# Injecting License
-# echo "Configuring DTR - Injecting License"
-# curl -Lik \
-# 	-X PUT https://${DOMAIN}:${DTR_PORT}/api/v0/admin/settings/license \
-# 	-H 'Content-Type: application/json; charset=UTF-8' \
-# 	-H 'Accept: */*' \
-# 	-H 'X-Requested-With: XMLHttpRequest' \
-# 	--data-binary @${SCRIPT_PATH}/docker_subscription.lic
-# sleep 25
+Injecting License
+echo "Configuring DTR - Injecting License"
+curl -Lik \
+	-X PUT https://${DOMAIN}:${DTR_PORT}/api/v0/admin/settings/license \
+	-H 'Content-Type: application/json; charset=UTF-8' \
+	-H 'Accept: */*' \
+	-H 'X-Requested-With: XMLHttpRequest' \
+	--data-binary @${SCRIPT_PATH}/docker_subscription.lic
+sleep 25
 
 # configure ucp
 echo "Configuring UCP to use DTR"
