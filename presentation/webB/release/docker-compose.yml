@@ -2,9 +2,7 @@ version: '2'
 
 services:
   nginxProjectXYZ:
-    build:
-      context: .
-    image: ${DOCKER1_IP}:1337/devops/project-xyz:${IMAGE_TAG}
+    image: {REPLACE_ID}:1337/devops/project-xyz:1.0.0
     # UCP access labels are case sensitive - match UCP GUI
     labels:
       # teamB - Full Control

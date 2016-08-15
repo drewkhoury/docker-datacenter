@@ -23,7 +23,7 @@ curl -k -Lik \
     -d "{  \"name\": \"foo\",  \"shortDescription\": \"foo\",  \"longDescription\": \"foo\",  \"visibility\": \"public\"}" "https://${DTR_URL}/api/v0/repositories/admin"
 
 # login to dtr
-docker login -u admin -p orca -e foo@bar.com ${DTR_URL}
+docker login -u admin -p orca ${DTR_URL}
 
 # push the image tag to the dtr repo,
 # a repo can hold many image tags for the same image,

@@ -1,5 +1,9 @@
 #!/bin/bash
 
+echo '=============================================================='
+echo '================= Install Docker Engine ======================'
+echo '=============================================================='
+
 # install docker cs
 sudo rpm --import "https://pgp.mit.edu/pks/lookup?op=get&search=0xee6d536cf7dc86e2d7d56f59a178ac6c6238f52e"
 sudo yum install -y yum-utils

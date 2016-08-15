@@ -1,4 +1,5 @@
 .vagrant
+.vscode
 .DS_Store
 images/*
 offline/*

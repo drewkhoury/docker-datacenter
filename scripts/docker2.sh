@@ -7,7 +7,10 @@ start=`date +%s`
 export SCRIPT_PATH=/home/vagrant/sync
 
 # common scripts
-source ${SCRIPT_PATH}/scripts/supporting/common.sh
+source ${SCRIPT_PATH}/scripts/supporting/common-ucp.sh
+
+# pre-download images
+source ${SCRIPT_PATH}/scripts/supporting/download-images.sh
 
 # ucp
 docker run --rm -t --name ucp \

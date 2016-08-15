@@ -84,4 +84,9 @@ Vagrant.configure(2) do |config|
     docker3.vm.provision "shell", path: "scripts/docker3.sh"
   end
 
+  config.vm.define "ddc_docker_dev" do |ddc_docker_dev|
+    #docker3.vm.network "forwarded_port", guest: 8443, host: 4433   
+    ddc_docker_dev.vm.provision "shell", path: "scripts/ddc-docker-dev.sh"
+  end
+
 end

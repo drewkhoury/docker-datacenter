@@ -1,0 +1,6 @@
+version: '2'
+
+services:
+  test:
+    image: busybox
+    command: ping www.google.com
