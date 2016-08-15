@@ -1,0 +1,15 @@
+version: '2'
+
+services:
+  nginx_webA:
+    image: nginx
+    volumes:
+    - ./static_html_dir:/usr/share/nginx/html
+    # UCP access labels are case sensitive - match UCP GUI
+    labels:
+      # teamA - View Only
+      - "com.docker.ucp.access.label=ProjectXYZ"
+      # teamA - Full Control
+      - "com.docker.ucp.access.label=TeamA"
+    ports:
+      - "8081:80"

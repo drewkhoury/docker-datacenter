@@ -1,0 +1,15 @@
+version: '2'
+
+services:
+  nginx_webB:
+    image: nginx
+    volumes:
+    - ./static_html_dir:/usr/share/nginx/html
+    # UCP access labels are case sensitive - match UCP GUI
+    labels:
+      # teamB - Full Control
+      - "com.docker.ucp.access.label=ProjectXYZ"
+      # teamB - Restricted Control
+      - "com.docker.ucp.access.label=TeamB" 
+    ports:
+      - "8080:80"

@@ -1,0 +1,11 @@
+version: '2'
+
+services:
+  nginx_webC:
+    image: nginx
+    # UCP access labels are case sensitive - match UCP GUI
+    labels:
+      # teamA - Full Control
+      - "com.docker.ucp.access.label=TeamA"
+    ports:
+      - "8083:80"
