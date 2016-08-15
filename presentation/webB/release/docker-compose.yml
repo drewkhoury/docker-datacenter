@@ -2,10 +2,9 @@ version: '2'
 
 services:
   nginxProjectXYZ:
-    image: {REPLACE_ID}:1337/devops/project-xyz:1.0.0
+    image: {REPLACE_ID}:1337/devops/project-xyz:3.0.0
     # UCP access labels are case sensitive - match UCP GUI
     labels:
-      # teamB - Full Control
       - "com.docker.ucp.access.label=ProjectXYZ"
       # EXPECT:FAIL - teamB - Restricted Control
       # - "com.docker.ucp.access.label=TeamB" 

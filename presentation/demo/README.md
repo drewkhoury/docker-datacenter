@@ -1,66 +1,121 @@
 # Demo
+https://docs.docker.com/ucp/configuration/dtr-integration/
 
-1. Show Create User and Team
-1. Show Push to Registry
-1. Show DTR with new Image and Tag
-1. Login as UserB show Compose Application
-1. As UserB show Restricted Control on app created
-1. Login as UserA show restricted access
+## Demo outline
+[Role] - [System] - [Action]
+1. Admin - UCP - Show User/Team/Resource Labels
+1. Dev - Dev - Push to Registry 
+1. Dev - DTR - View new Image and Tag
+1. Dev - UCP - Deploy via Compose
+- a. Fail - access denied
+4. Release - UCP - Deploy via Compose
+- a. success - App created
+5. Dev - UCP - View container (see logs, stats)
 
+#### Roles
+- Admin - admin
+- Dev - drew
+- Release - pablo
 
+---
+## Pre-setup for Demo
 
-## User Admin
+```
+vagrant up docker1
+#cat /etc/hosts | grep docker1
 
-### Create Users
-- userA, FullName=userA_NA
+# log in to UCP - check 5 containers are started for DTR
+# if not run following do following:
+#
+# Find --existing-replica-id at UCP web site Applications page
+# eg "Docker Trusted Registry 2.0.3 - (Replica afb7d048d0ba)"
+#
+# REPLACE BELOW - "?" with valid id eg. "existing_replica_id=afb7d048d0ba"
+# vagrant ssh docker1 -c 'export existing_replica_id=?; /home/vagrant/sync/scripts/supporting/dtr-re-install.sh'
+
+```
+
+### UCP
+See https://docs.docker.com/ucp/user-management/permission-levels/
+#### Create Users
+- [dev-username], FullName=Dev_VO
   - Default Permission: View Only
-- userB, FullName=userB_RC
+- [release-username], FullName=Release_RC
   - Default Permission: Restricted Control
 
-### Create Teams
-- teamA
-  - Add user: userA
+#### Create Teams
+- dev-vo
+  - Add user: [dev-username]
   - Permissions - add resource label
     - ProjectXYZ - View Only
-    - TeamA - Full Control
-- teamB
-  - Add user: userB
+- release-fc
+  - Add user: [release-username]
   - Permission - add resource label
     - ProjectXYZ - Full Control
-    - TeamB - Restricted Control
+    - NOTE: Console requires FC
 
-### Login as userB
-https://docs.docker.com/ucp/configuration/dtr-integration/
+### DTR
+- run script to create dtr accounts/teams
+
+```
+vagrant up ddc_docker_dev
+vagrant ssh ddc_docker_dev -c '/home/vagrant/sync/presentation/demo/scripts/dtr-setup.sh'
+vagrant ssh ddc_docker_dev -c '/home/vagrant/sync/presentation/demo/scripts/dev-push.sh v1v2'
+
+```
+
+----
+
+## Start Demo
+
+### Show ProjectXYZ website is down - http://IP:8080
+
+### Admin - UCP - Show User/Team/Resource Labels
+
+### Dev - Dev - Push to Registry
+- Vagrant ssh to ddc_docker_dev box
+- Run scripts
+```
+vagrant ssh ddc_docker_dev -c '/home/vagrant/sync/presentation/demo/scripts/dev-push.sh v3'
+
+```
+
+### Dev - DTR - View new Image and Tag
+- Login as Dev - show uploaded image and tags
+
+### Dev - UCP - Deploy via Compose 
+- Login as [dev-username]
 - Create Application - ProjectXYZ
-  - /presentation/webB/docker-compose.yml
+  - /presentation/webB/release/docker-compose.yml
+  - NOTE: update IP address
+- Failure - access denied
 
-```
-# EXPECT ERROR: if TeamB resource label is used.
-Created docker/ucp-compose:1.1.2 compose container
-Started compose container 68a732146b299a089abf110b41c63577483dd5b07561be3b5377e8326fb7be35
-Creating network "projectxyz_default" with the default driver
-Creating projectxyz_nginxProjectXYZ_1
+### Release - UCP - Deploy via Compose
+- Login as [release-username]
+- Create Application - ProjectXYZ
+  - /presentation/webB/release/docker-compose.yml
+  - NOTE: update IP address
+- Success
 
-ERROR: for nginxProjectXYZ  Permission denied: host mounted volumes not allowed.  You must specify a group label with Full Access or request Full Access from your administrator.
-Successfully deployed ProjectXYZ
+### Dev - UCP - View container (see logs, stats)
+- Login as [dev-username]
+- Show Containers list - show column Label
+- View Container - show logs, stats pages
 
-# ** New test **
-# EXPECT SUCCESS: if ProjectXYZ label is used
-Created docker/ucp-compose:1.1.2 compose container
-Started compose container c940aa799e9e2a65bc632d094521da38f7ad91ff9f254c73550436ea0ad9a03d
-Creating projectxyz_nginxProjectXYZ_1
-Successfully deployed projectXYZ
-```
+## End Demo
+---
 
-### Login as userA
+## Sample Images
 
-- EXPECT ERROR: Restart ProjectXYZ container
-  - UserA only has 'View Only'.
+###  Login as [dev-user]
+EXPECT ERROR: Restart ProjectXYZ container
+  - [dev-user] only has 'View Only'.
   - NOTE: buttons are still displayed but action results in error. 
+
 ![dummy](images/userA_projectXYZ_restart_error.png)
 
-### Login as userB
+### Login as Admin
 
-- EXPECT SUCCESS: ProjectXYZ connect console
+EXPECT SUCCESS: ProjectXYZ connect console
 
 ![dummy](images/userB_projectXYZ_console_success.png)

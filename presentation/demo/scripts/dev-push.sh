@@ -1,20 +1,16 @@
 #!/bin/bash
 
-# vagrant up ddc_docker_dev
-# vagrant ssh ddc_docker_dev -c 'chmod +x /home/vagrant/sync/presentation/demo/scripts/*.sh'
-
-# vagrant ssh ddc_docker_dev -c '/home/vagrant/sync/presentation/demo/scripts/dev-push.sh v1'
-
-# vagrant ssh ddc_docker_dev -c '/home/vagrant/sync/presentation/demo/scripts/dtr-org-setup.sh'
-
-# vagrant ssh ddc_docker_dev -c '/home/vagrant/sync/presentation/demo/scripts/dev-push.sh all'
-
-
 # set -x
 
 function main()
 {
   var1=$1
+
+  DTR_ORG=devops
+  DTR_REPO=project-xyz
+  DTR_USER=drew
+  DTR_PASSWORD=drew
+  DTR_TEAM=dev
 
   export SCRIPT_PATH=/home/vagrant/sync
   export PRES_PATH=/home/vagrant/sync/presentation
@@ -30,26 +26,23 @@ function main()
   # docker-compose -f ${PRES_PATH}/webB/docker-compose.yml stop nginxProjectXYZ
   # docker-compose -f ${PRES_PATH}/webB/docker-compose.yml rm -v -f nginxProjectXYZ
 
-  docker login -u userb -p userb ${DTR_URL}
+  docker login -u ${DTR_USER} -p ${DTR_PASSWORD} ${DTR_URL}
 }
 
 start_command=$1
 if [ -n "$start_command" ]; then
-  if [ "$start_command" == "all" ]; then
+  if [ "$start_command" == "v1v2" ]; then
 
     main "1.0.0"
-    docker push ${DOCKER1_IP}:1337/devops/project-xyz:${IMAGE_TAG}
+    docker push ${DOCKER1_IP}:1337/${DTR_ORG}/${DTR_REPO}:${IMAGE_TAG}
 
     main "2.0.0"
-    docker push ${DOCKER1_IP}:1337/devops/project-xyz:${IMAGE_TAG}
-
-    main "3.0.0"
-    docker push ${DOCKER1_IP}:1337/devops/project-xyz:${IMAGE_TAG}
+    docker push ${DOCKER1_IP}:1337/${DTR_ORG}/${DTR_REPO}:${IMAGE_TAG}
   fi
-  if [ "$start_command" == "v1" ]; then
-    main "1.0.0"
-    docker push ${DOCKER1_IP}:1337/devops/project-xyz:${IMAGE_TAG}
-    
+  if [ "$start_command" == "v3" ]; then
+    main "3.0.0"
+    docker push ${DOCKER1_IP}:1337/${DTR_ORG}/${DTR_REPO}:${IMAGE_TAG}
+   
   fi
 fi
 

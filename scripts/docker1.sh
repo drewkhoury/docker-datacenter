@@ -33,7 +33,8 @@ docker/ucp fingerprint | cut -d '=' -f 2 > fingerprint.log
 # serve up the fingerprint
 nohup python -m SimpleHTTPServer 8000 </dev/null >/dev/null 2>&1 &  
 
-# sleep 30s
+echo "sleeping 60s to allow UCP to catch up from installing"
+sleep 60s
 
 source ${SCRIPT_PATH}/scripts/supporting/dtr.sh
 

@@ -4,6 +4,8 @@ echo `date`
 start=`date +%s`
 
 # common scripts
+export SCRIPT_PATH=/home/vagrant/sync
+
 source ${SCRIPT_PATH}/scripts/supporting/common-environment.sh
 source ${SCRIPT_PATH}/scripts/supporting/common.sh
 source ${SCRIPT_PATH}/scripts/supporting/dtr-ssl.sh
