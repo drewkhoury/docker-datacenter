@@ -2,11 +2,10 @@ version: '2'
 
 services:
   nginxProjectXYZ:
-    build:
-      context: .
-    image: ${DOCKER1_IP}:1337/devops/project-xyz:${IMAGE_TAG}
+    # NOTE: replace hardcode IP for your machine
+    image: 172.28.128.5:1337/devops/project-xyz:3.0.0
     # UCP access labels are case sensitive - match UCP GUI
     labels:
       - "com.docker.ucp.access.label=ProjectXYZ"
     ports:
-      - "8080:80"
+      - "8081:80"

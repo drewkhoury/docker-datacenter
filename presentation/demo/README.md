@@ -3,6 +3,7 @@ https://docs.docker.com/ucp/configuration/dtr-integration/
 
 ## Demo outline
 [Role] - [System] - [Action]
+1. Show Website v2
 1. Admin - UCP - Show User/Team/Resource Labels
 1. Dev - Dev - Push to Registry 
 1. Dev - DTR - View new Image and Tag

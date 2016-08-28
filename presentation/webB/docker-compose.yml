@@ -7,9 +7,6 @@ services:
     image: ${DOCKER1_IP}:1337/devops/project-xyz:${IMAGE_TAG}
     # UCP access labels are case sensitive - match UCP GUI
     labels:
-      # teamB - Full Control
       - "com.docker.ucp.access.label=ProjectXYZ"
-      # EXPECT:FAIL - teamB - Restricted Control
-      # - "com.docker.ucp.access.label=TeamB" 
     ports:
       - "8080:80"
