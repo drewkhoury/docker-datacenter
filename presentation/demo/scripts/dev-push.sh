@@ -18,11 +18,12 @@ function main()
 
   source ${SCRIPT_PATH}/scripts/supporting/common-environment.sh
 
-  # DOCKER1_IP variable defined in docker-compose.yml retrieved via source command above
-  if [ "$version" == "v1v2" ] ; then
-    docker-compose -f ${PRES_PATH}/webA/docker-compose.yml build nginxProjectXYZ
-  else
+  # DOCKER1_IP variable defined in docker-compose.yml 
+  # retrieved via source command above
+  if [ "$version" == "3.0.0" ] ; then
     docker-compose -f ${PRES_PATH}/webB/docker-compose.yml build nginxProjectXYZ
+  else
+    docker-compose -f ${PRES_PATH}/webA/docker-compose.yml build nginxProjectXYZ
   fi 
 
   docker login -u ${DTR_USER} -p ${DTR_PASSWORD} ${DTR_URL}
