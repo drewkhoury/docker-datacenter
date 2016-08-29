@@ -11,13 +11,18 @@ https://docs.docker.com/ucp/configuration/dtr-integration/
 [Role] - [System] - [Action]
 1. Show Website v2 is boring
 1. Admin - UCP - Show User/Team/Resource Labels
+1. Admin - DTR - Show tags v1 and v2, but v3 does not exist
+1. Logout as Admin
 1. Dev - Dev - Push to Registry 
 1. Dev - DTR - View new Image and Tag
 1. Dev - UCP - Deploy via Compose
 - a. Fail - access denied
-4. Release - UCP - Deploy via Compose
+8. Release - UCP - Deploy via Compose
 - a. success - App created
-5. Dev - UCP - View container (see logs, stats)
+9. 1 week later - website is slow
+10. Dev - UCP - View container (see logs, stats)
+11. Dev - UCP - has found fix
+- a. Fail - access denied to console
 
 #### Roles
 - Admin - admin
@@ -79,7 +84,9 @@ vagrant ssh docker1 -c '/home/vagrant/sync/presentation/demo/scripts/release-v2.
 
 1. ### Admin - UCP - Show User/Team/Resource Labels
 
-1. ### Dev - DTR - Show tags v1 and v2, v3 does not exist
+1. ### Admin - DTR - Show tags v1 and v2, v3 does not exist
+
+1. ### Logout as Admin user
 
 1. ### Dev - Dev - Push to Registry
 - Run script
@@ -87,17 +94,17 @@ vagrant ssh docker1 -c '/home/vagrant/sync/presentation/demo/scripts/release-v2.
 vagrant ssh ddc_docker_dev -c '/home/vagrant/sync/presentation/demo/scripts/dev-push.sh v3'
 ```
 
-5. ### Dev - DTR - View new Image and Tag
+6. ### Dev - DTR - View new Image and Tag
 - Login as Dev - show uploaded image and tags
 
-6. ### Dev - UCP - Deploy via Compose 
+7. ### Dev - UCP - Deploy via Compose 
 - Login as [dev-username]
 - Create Application - ProjectXYZ
   - /presentation/webB/release/docker-compose.yml
   - NOTE: update IP address
 - Failure - access denied
 
-7. ### Release - UCP - Deploy via Compose
+8. ### Release - UCP - Deploy via Compose
 - Login as [release-username]
 - Create Application - ProjectXYZ
   - /presentation/webB/release/docker-compose.yml
@@ -105,10 +112,16 @@ vagrant ssh ddc_docker_dev -c '/home/vagrant/sync/presentation/demo/scripts/dev-
 - Success
   - http://docker1:8081
 
-8. ### Dev - UCP - View container (see logs, stats)
+9. ### 1 week later - website is slow
+
+10. ### Dev - UCP - View container (see logs, stats)
 - Login as [dev-username]
 - Show Containers list - show column Label
 - View Container - show logs, stats pages
+
+11. ### Dev - UCP - has found fix.
+- Open console to make changes
+- Failure - access denied
 
 ## End Demo
 ---
