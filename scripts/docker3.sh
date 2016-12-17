@@ -4,7 +4,7 @@ echo `date`
 start=`date +%s`
 
 # paths
-export SCRIPT_PATH=/home/vagrant/sync
+export SCRIPT_PATH=/vagrant
 
 # common scripts
 source ${SCRIPT_PATH}/scripts/supporting/common.sh
