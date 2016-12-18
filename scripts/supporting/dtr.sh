@@ -21,7 +21,7 @@ source ${SCRIPT_PATH}/scripts/supporting/dtr-ssl.sh
 
 # configure ucp
 echo "Configuring UCP to use DTR"
-TOKEN=$(curl -k -c jar https://${UCP_URL}/auth/login -d '{"username": "admin", "password": "orca"}' -X POST -s | ./jq-linux64 -r ".auth_token")
+TOKEN=$(curl -k -c jar https://${UCP_URL}/auth/login -d '{"username": "admin", "password": "dolphins"}' -X POST -s | ./jq-linux64 -r ".auth_token")
 curl -k -s -c jar -H "Authorization: Bearer ${TOKEN}" https://${UCP_URL}/api/config/registry -X POST --data "{\"url\": \"https://${DTR_URL}\", \"insecure\":false}"
 
 # make the ucp cert bundle available on the host
