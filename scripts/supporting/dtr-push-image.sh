@@ -11,19 +11,19 @@ CMD ["/hello"]
 EOF
 
 # create a image tag locally,
-# image name `${DTR_HOST}/admin/foo` 
+# image name `${DTR_HOST}/admin/foo`
 # must match repo name `https://${DTR_HOST}/repositories/admin/foo/details`
 docker build -t ${DTR_URL}/admin/foo:tag1 .
 
 # create repo
 curl -k -Lik \
-	--user admin:orca -X POST \
+	--user admin:${UCP_PASSWORD} -X POST \
 	--header "Content-Type: application/json" \
 	--header "Accept: application/json" \
     -d "{  \"name\": \"foo\",  \"shortDescription\": \"foo\",  \"longDescription\": \"foo\",  \"visibility\": \"public\"}" "https://${DTR_URL}/api/v0/repositories/admin"
 
 # login to dtr
-docker login -u admin -p orca -e foo@bar.com ${DTR_URL}
+docker login -u admin -p ${UCP_PASSWORD} -e foo@bar.com ${DTR_URL}
 
 # push the image tag to the dtr repo,
 # a repo can hold many image tags for the same image,
